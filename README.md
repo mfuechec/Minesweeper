@@ -4,11 +4,13 @@ The critically-acclaimed Mark’s Minesweeper is a groundbreaking work of React 
 
 Built in one afternoon as a way to experiment with React Redux and Context API, the application has already received heartfelt endorsements from many of the nation’s most influential leaders.
 
-                                           — Haters - ‘We acclaim this.’
+           — Haters - ‘We acclaim this.’
 
-                                           — Former president Bill Clinton - ‘I enjoy the mindsweeper(sic) product.’                                                         * *Compensated endorsement*
+           — Former president Bill Clinton - ‘I enjoy the mindsweeper(sic) product.’
+               * *Compensated endorsement*
 
-                                           — Soup Nazi from Seinfeld - ‘What is this minesweeper? This is game?’                                                            * *Said in an excited way, like ‘Can you believe what is this minesweeper!’*
+           — Soup Nazi from Seinfeld - ‘What is this minesweeper? This is game?’
+               * *Said in an excited way, like ‘Can you believe what is this minesweeper!’*
 
 # Get started
 ---
