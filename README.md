@@ -7,10 +7,10 @@ Built in one afternoon as a way to experiment with React Redux and Context API, 
            — Haters - ‘We acclaim this.’
 
            — Former president Bill Clinton - ‘I enjoy the mindsweeper(sic) product.’
-               * *Compensated endorsement*
+               * Compensated endorsement
 
            — Soup Nazi from Seinfeld - ‘What is this minesweeper? This is game?’
-               * *Said in an excited way, like ‘Can you believe what is this minesweeper!’*
+               * Said in an excited way, like ‘Can you believe what is this minesweeper!’
 
 # Get started
 ---
@@ -30,6 +30,7 @@ Then navigate to localhost:4001 in your browser.
 
 # In Action
 ---
+![losing game](images/losingGame.png)
 
 
 # Front-End
