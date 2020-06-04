@@ -1,8 +1,10 @@
 # Minesweeper
 ---
-The critically-acclaimed Mark’s Minesweeper is a groundbreaking work of React components and basic css styling.
+The word minesweeper comes from the ancient Egyptian word minne swiip, which roughly translates into 'the contest of the living gods.' While 5,000 years ago the game was only played by the masters of slaves, today, minesweeper has widespread appeal.
 
-Built in one afternoon as a way to experiment with React Redux and Context API, the application has already received heartfelt endorsements from many of the nation’s most influential leaders.
+In the luxurious board rooms of Abu Dhabi it has become customary to hold off important business meetings until after the participants have gotten to know each other over informal discussions of the latest sweeping strategies. The floors of dance halls in the Peruvian Andes often take the form of an outsized sweeping board, the dancers moving with grace and wits to avoid the live mines.
+
+Built in one afternoon as a way to experiment with React Redux and Context API, Mark's Minesweeper has already received heartfelt endorsements from many of the nation’s most influential leaders as it quickly becomes the pre-eminent online Minesweeper game.
 
            — Haters - ‘We acclaim this.’
 
