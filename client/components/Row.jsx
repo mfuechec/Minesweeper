@@ -12,7 +12,7 @@ function Row(props) {
     return (
         columns.map((column, i) =>
             <div key={i} className={`squares column${i}`}>
-                <Square row={props.row} column={column} />
+                <Square boardSize={props.boardSize} bombs={props.bombs} setSelected={props.setSelected} selected={props.selected} coordinates={[props.row, column]} />
             </div>
         )
     )

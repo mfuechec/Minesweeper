@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from './Row.jsx';
 
-function Board() {
+function Board(props) {
 
     let rows = [];
 
@@ -12,7 +12,7 @@ function Board() {
     return (
         rows.map((row, i) =>
             <div className='rows' key={i} id={`row-${i}`}>
-                <Row row={row} />
+                <Row boardSize={props.boardSize} bombs={props.bombs} setSelected={props.setSelected} selected={props.selected} row={row} />
             </div>
         )
     )
