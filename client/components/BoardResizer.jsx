@@ -8,13 +8,16 @@ function boardResizer(props) {
     }
 
     return (
+        // <div id='boardResizer'>
+        //     <select id='selection'>
+        //         <option value='10'>10</option>
+        //         <option value='15'>15</option>
+        //         <option value='20'>20</option>
+        //     </select>
+        //     <button onClick={() => { newBoard() }}>New Board</button>
+        // </div>
         <div id='boardResizer'>
-            <select id='selection'>
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='20'>20</option>
-            </select>
-            <button onClick={() => { newBoard() }}>New Board</button>
+            <button onClick={() => window.location.reload()}>Reset</button>
         </div>
     )
 }

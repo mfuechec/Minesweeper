@@ -84,11 +84,15 @@ function Square(props) {
         element.style.display = 'block';
 
         showBombs();
+
+        element = document.getElementsByClassName('square');
+        for (let i = 0; i < element.length; i++) {
+            element[i].disabled = true;
+        }
     }
 
     function showBombs() {
         let bombs = Object.keys(props.bombs);
-        console.log(bombs);
 
         for (let i = 0; i < bombs.length; i++) {
             let element = document.getElementById(bombs[i]);
@@ -99,11 +103,11 @@ function Square(props) {
 
     if (isBomb(coordinates)) {
         return (
-            <div className='square' id={coordinates} onClick={() => failure()}></div>
+            <button className='square' id={coordinates} onClick={() => failure()}></button>
         )
     } else {
         return (
-            <div className='square' id={coordinates} display='none' onClick={() => { select(coordinates) }}></div>
+            <button className='square' id={coordinates} display='none' onClick={() => { select(coordinates) }}></button>
         )
     }
 }

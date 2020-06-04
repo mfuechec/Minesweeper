@@ -9,8 +9,8 @@
 }
 
 .squares {
-    width: 2vw;
-    height: 4vh;
+    width: 3vw;
+    height: 5vh;
     border: 1px solid black;
     text-align: center;
 }
