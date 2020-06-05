@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Timer() {
+function Timer(props) {
     return (
-        <div id='timer'>Here's a timer!</div>
+        <div id='timer'>{Math.floor((props.currentTime - props.startTime) / 1000)}</div>
     )
 }
 

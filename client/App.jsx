@@ -11,6 +11,8 @@ function App() {
     let [bombs, setBombs] = useState(generateMines(boardSize, numOfMines));
     let [selected, setSelected] = useState({});
     let [message, setMessage] = useState('Good luck, dude!');
+    let [startTime, setStartTime] = useState(Date.now());
+    let [currentTime, setCurrentTime] = useState(Date.now());
 
     function generateMines(boardSize, numOfMines) {
         let mines = {};
@@ -67,19 +69,29 @@ function App() {
 
         setSelected({});
         setMessage('Good Luck, dude!');
+        setStartTime(Date.now());
+        setCurrentTime(Date.now());
     }
+
+    function updateCurrentTime() {
+        setInterval(() => {
+            setCurrentTime(Date.now());
+        }, 1000)
+    }
+
+    updateCurrentTime();
 
     return (
         <div id='fullScreen'>
             <div id='settingsContainer'>
                 <BoardResizer reset={reset} setSelected={setSelected} setBombs={setBombs} generateMines={generateMines} setBoardSize={setBoardSize} />
             </div>
-            <div id='gameContainer'>
+            <div id='gameContainer' style={{ marginTop: `${36 - boardSize * 2}vh` }}>
                 <Board failure={failure} boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
             </div>
             <div id='messageContainer'>
                 <div id='messageWindow' >
-                    <Timer />
+                    <Timer currentTime={currentTime} startTime={startTime} />
                     <Message message={message} />
                 </div>
             </div>

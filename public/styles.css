@@ -67,6 +67,10 @@
             #timer {
                 position: relative;
                 top: 10%;
+                border: 1px solid;
+                font-size: 500%;
+                width: 85%;
+                margin-left: 7%;
             }
 
             #message {
