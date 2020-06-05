@@ -24,12 +24,42 @@ function App() {
         return mines;
     }
 
+    function reset() {
+        let elements = document.getElementsByClassName('empty');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none';
+        }
+
+        elements = document.getElementsByClassName('bombs');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none';
+        }
+
+        elements = document.getElementsByClassName('messageContainer');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none';
+        }
+
+        elements = document.getElementsByClassName('square');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].disabled = false;
+        }
+    }
+
     return (
-        <div id='boardContainer'>
-            <SplodeModal />
-            <WinnersModal />
-            <BoardResizer setBoardSize={setBoardSize} />
-            <Board boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
+        <div id='fullScreen'>
+            <div id='settingsContainer'>
+                <BoardResizer reset={reset} setSelected={setSelected} setBombs={setBombs} generateMines={generateMines} setBoardSize={setBoardSize} />
+            </div>
+            <div id='gameContainer'>
+                <div>
+                    <Board boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
+                </div>
+            </div>
+            <div id='messageContainer'>
+                <SplodeModal />
+                <WinnersModal />
+            </div>
         </div>
     )
 

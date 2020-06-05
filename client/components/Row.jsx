@@ -5,7 +5,7 @@ function Row(props) {
 
     let columns = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < props.boardSize; i++) {
         columns.push(i);
     }
 

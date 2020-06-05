@@ -1,6 +1,12 @@
 #boardContainer {
-    margin: auto;
-    margin-top: 15%;
+    
+}
+
+#fullScreen {
+    background-color: #333333;
+    height: 97vh;
+    width: 98vw;
+    margin: 0%;
 }
 
 .rows {
@@ -23,7 +29,7 @@
 .messageContainer {
     position: absolute;
     top: 15%;
-    display: none;
+    z-index: -1;
 }
 
 .message {
@@ -33,6 +39,11 @@
 
 #boardResizer {
     position: absolute;
-    top: 50%;
-    left: 15%;
+    top: 25%;
+    left: 10%;
+}
+
+.selection {
+    width: 70%;
+    margin-left: 50%;
 }

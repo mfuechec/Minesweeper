@@ -18,7 +18,7 @@ function Square(props) {
 
     function toggle(coordinates) {
         let element = document.getElementById(coordinates);
-        element.innerText = `${numberOfNeighboringBombs(coordinates)}`;
+        element.children[0].style.display = 'block';
     }
 
     function bordersBombs(coordinates) {
@@ -81,7 +81,7 @@ function Square(props) {
 
     function failure() {
         let element = document.getElementById('lost');
-        element.style.display = 'block';
+        element.style.zIndex = 5;
 
         showBombs();
 
@@ -92,22 +92,24 @@ function Square(props) {
     }
 
     function showBombs() {
-        let bombs = Object.keys(props.bombs);
+        let bombs = document.getElementsByClassName('bombs');
 
         for (let i = 0; i < bombs.length; i++) {
-            let element = document.getElementById(bombs[i]);
-            element.innerText = '!!!';
-            element.style.backgroundColor = 'red';
+            bombs[i].style.display = 'block';
         }
     }
 
     if (isBomb(coordinates)) {
         return (
-            <button className='square' id={coordinates} onClick={() => failure()}></button>
+            <button className='square' id={coordinates} onClick={() => failure()}>
+                <div className='bombs' style={{ display: 'none', backgroundColor: 'red' }}>!!!</div>
+            </button>
         )
     } else {
         return (
-            <button className='square' id={coordinates} display='none' onClick={() => { select(coordinates) }}></button>
+            <button className='square' id={coordinates} onClick={() => { select(coordinates) }}>
+                <div className='empty' onClick={() => { select(coordinates) }} style={{ display: 'none' }}>{numberOfNeighboringBombs(coordinates)}</div>
+            </button>
         )
     }
 }

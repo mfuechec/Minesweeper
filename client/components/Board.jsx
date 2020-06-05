@@ -5,7 +5,7 @@ function Board(props) {
 
     let rows = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < props.boardSize; i++) {
         rows.push(i);
     }
 
