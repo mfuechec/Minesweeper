@@ -29,7 +29,7 @@ function App() {
 
     function resetBoard() {
 
-        let element = document.getElementById('selection');
+        let element = document.getElementById('sizeSelector');
         setBoardSize(element.value);
         setBombs(generateMines(element.value, element.value * difficulty))
 
