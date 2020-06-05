@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Board from './components/Board.jsx';
-import SplodeModal from './components/Message/SplodeModal.jsx';
-import WinnersModal from './components/Message/WinnersModal.jsx';
+import Message from './components/Message/Message.jsx';
 import BoardResizer from './components/BoardResizer.jsx';
+import Timer from './components/Timer/Timer.jsx';
 
 function App() {
 
@@ -10,6 +10,7 @@ function App() {
     let numOfMines = boardSize * 2;
     let [bombs, setBombs] = useState(generateMines(boardSize, numOfMines));
     let [selected, setSelected] = useState({});
+    let [message, setMessage] = useState('Good luck, dude!');
 
     function generateMines(boardSize, numOfMines) {
         let mines = {};
@@ -52,13 +53,13 @@ function App() {
                 <BoardResizer reset={reset} setSelected={setSelected} setBombs={setBombs} generateMines={generateMines} setBoardSize={setBoardSize} />
             </div>
             <div id='gameContainer'>
-                <div>
-                    <Board boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
-                </div>
+                <Board boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
             </div>
             <div id='messageContainer'>
-                <SplodeModal />
-                <WinnersModal />
+                <div id='messageWindow' >
+                    <Timer />
+                    <Message message={message} />
+                </div>
             </div>
         </div>
     )
