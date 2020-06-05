@@ -32,6 +32,8 @@ function App() {
         for (let i = 0; i < element.length; i++) {
             element[i].disabled = true;
         }
+
+        setMessage('You Lose, Loser!')
     }
 
     function showBombs() {
