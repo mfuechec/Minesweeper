@@ -7,9 +7,9 @@ import Timer from './components/Timer/Timer.jsx';
 function App() {
 
     let [boardSize, setBoardSize] = useState(10);
-    let [difficulty, setDifficulty] = useState(2)
+    let [difficulty, setDifficulty] = useState(2);
     let [bombs, setBombs] = useState(generateMines(boardSize, boardSize * difficulty));
-    let [selected, setSelected] = useState({ numbers: 0 });
+    let [selected, setSelected] = useState({});
     let [message, setMessage] = useState('Good luck, dude!');
     let [startTime, setStartTime] = useState(Date.now());
     let [currentTime, setCurrentTime] = useState(Date.now());
@@ -99,17 +99,16 @@ function App() {
         },
 
         select(coordinates) {
+            let newSelected = selected;
             if (selected[coordinates] !== 1) {
-                let newSelected = selected;
                 newSelected[coordinates] = 1;
-                newSelected.numbers++;
                 setSelected(newSelected);
                 gameLogic.toggle(coordinates);
                 if (gameLogic.bordersBombs(coordinates) === false) {
                     gameLogic.selectAllNeighbors(coordinates);
                 }
             }
-            if (selected.numbers === (boardSize * boardSize - boardSize * difficulty)) {
+            if (Object.keys(newSelected).length === ((boardSize * boardSize) - (boardSize * difficulty))) {
                 gameLogic.victory();
             }
         },
