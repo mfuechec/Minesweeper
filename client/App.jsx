@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Board from './components/Board.jsx';
 import Message from './components/Message/Message.jsx';
 import BoardResizer from './components/BoardResizer.jsx';
@@ -7,9 +7,9 @@ import Timer from './components/Timer/Timer.jsx';
 function App() {
 
     let [boardSize, setBoardSize] = useState(10);
-    let numOfMines = boardSize * 2;
-    let [bombs, setBombs] = useState(generateMines(boardSize, numOfMines));
-    let [selected, setSelected] = useState({});
+    let [difficulty, setDifficulty] = useState(1)
+    let [bombs, setBombs] = useState(generateMines(boardSize, boardSize * difficulty));
+    let [selected, setSelected] = useState({ numbers: 0 });
     let [message, setMessage] = useState('Good luck, dude!');
     let [startTime, setStartTime] = useState(Date.now());
     let [currentTime, setCurrentTime] = useState(Date.now());
@@ -27,26 +27,12 @@ function App() {
         return mines;
     }
 
-    function failure() {
-        showBombs();
+    function resetBoard() {
 
-        let element = document.getElementsByClassName('square');
-        for (let i = 0; i < element.length; i++) {
-            element[i].disabled = true;
-        }
+        let element = document.getElementById('selection');
+        setBoardSize(element.value);
+        setBombs(generateMines(element.value, element.value * difficulty))
 
-        setMessage('You Lose, Loser!')
-    }
-
-    function showBombs() {
-        let bombs = document.getElementsByClassName('bombs');
-
-        for (let i = 0; i < bombs.length; i++) {
-            bombs[i].style.display = 'block';
-        }
-    }
-
-    function reset() {
         let elements = document.getElementsByClassName('empty');
         for (let i = 0; i < elements.length; i++) {
             elements[i].style.display = 'none';
@@ -73,6 +59,14 @@ function App() {
         setCurrentTime(Date.now());
     }
 
+    function showBombs() {
+        let bombs = document.getElementsByClassName('bombs');
+
+        for (let i = 0; i < bombs.length; i++) {
+            bombs[i].style.display = 'block';
+        }
+    }
+
     function updateCurrentTime() {
         setInterval(() => {
             setCurrentTime(Date.now());
@@ -81,13 +75,115 @@ function App() {
 
     updateCurrentTime();
 
+    let gameLogic = {
+
+        failure() {
+            showBombs();
+
+            let element = document.getElementsByClassName('square');
+            for (let i = 0; i < element.length; i++) {
+                element[i].disabled = true;
+            }
+
+            setMessage('You Lose, Loser!')
+        },
+
+        victory() {
+            let element = document.getElementsByClassName('square');
+            for (let i = 0; i < element.length; i++) {
+                element[i].disabled = true;
+            }
+
+            setMessage(`You won in ${Math.floor((currentTime - startTime) / 1000)} seconds!`)
+        },
+
+        select(coordinates) {
+            if (selected[coordinates] !== 1) {
+                let newSelected = selected;
+                newSelected[coordinates] = 1;
+                newSelected.numbers++;
+                setSelected(newSelected);
+                gameLogic.toggle(coordinates);
+                if (gameLogic.bordersBombs(coordinates) === false) {
+                    gameLogic.selectAllNeighbors(coordinates);
+                }
+            }
+            if (selected.numbers === (boardSize * boardSize - boardSize * difficulty)) {
+                gameLogic.victory();
+            }
+        },
+
+        toggle(coordinates) {
+            let element = document.getElementById(coordinates);
+            element.children[0].style.display = 'block';
+        },
+
+        bordersBombs(coordinates) {
+            let row = coordinates[0];
+            let column = coordinates[1];
+
+            if (gameLogic.isBomb([(row - 1), (column - 1)])) { return true };
+            if (gameLogic.isBomb([(row - 1), (column)])) { return true };
+            if (gameLogic.isBomb([(row - 1), (column + 1)])) { return true };
+            if (gameLogic.isBomb([(row), (column - 1)])) { return true };
+
+            if (gameLogic.isBomb([(row), (column + 1)])) { return true };
+            if (gameLogic.isBomb([(row + 1), (column - 1)])) { return true };
+            if (gameLogic.isBomb([(row + 1), (column)])) { return true };
+            if (gameLogic.isBomb([(row + 1), (column + 1)])) { return true };
+
+            return false;
+        },
+
+        numberOfNeighboringBombs(coordinates) {
+            let row = coordinates[0];
+            let column = coordinates[1];
+            let count = 0;
+
+            if (gameLogic.isBomb([(row - 1), (column - 1)])) { count++ };
+            if (gameLogic.isBomb([(row - 1), (column)])) { count++ };
+            if (gameLogic.isBomb([(row - 1), (column + 1)])) { count++ };
+            if (gameLogic.isBomb([(row), (column - 1)])) { count++ };
+
+            if (gameLogic.isBomb([(row), (column + 1)])) { count++ };
+            if (gameLogic.isBomb([(row + 1), (column - 1)])) { count++ };
+            if (gameLogic.isBomb([(row + 1), (column)])) { count++ };
+            if (gameLogic.isBomb([(row + 1), (column + 1)])) { count++ };
+
+            return count;
+        },
+
+        selectAllNeighbors(coordinates) {
+            let row = coordinates[0];
+            let column = coordinates[1];
+
+            if (row - 1 > -1 && column - 1 > -1 && row - 1 < boardSize && column - 1 < boardSize) { gameLogic.select([row - 1, column - 1]) };
+            if (row - 1 > -1 && column > -1 && row - 1 < boardSize && column < boardSize) { gameLogic.select([row - 1, column]) };
+            if (row - 1 > -1 && column + 1 > -1 && row - 1 < boardSize && column + 1 < boardSize) { gameLogic.select([row - 1, column + 1]) };
+            if (row > -1 && column - 1 > -1 && row < boardSize && column - 1 < boardSize) { gameLogic.select([row, column - 1]) };
+
+            if (row > -1 && column + 1 > -1 && row < boardSize && column + 1 < boardSize) { gameLogic.select([row, column + 1]) };
+            if (row + 1 > -1 && column - 1 > -1 && row + 1 < boardSize && column - 1 < boardSize) { gameLogic.select([row + 1, column - 1]) };
+            if (row + 1 > -1 && column > -1 && row + 1 < boardSize && column < boardSize) { gameLogic.select([row + 1, column]) };
+            if (row + 1 > -1 && column + 1 > -1 && row + 1 < boardSize && column + 1 < boardSize) { gameLogic.select([row + 1, column + 1]) };
+        },
+
+        isBomb(coordinates) {
+            if (bombs[coordinates] === 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     return (
         <div id='fullScreen'>
             <div id='settingsContainer'>
-                <BoardResizer reset={reset} setSelected={setSelected} setBombs={setBombs} generateMines={generateMines} setBoardSize={setBoardSize} />
+                <BoardResizer resetBoard={resetBoard} />
             </div>
             <div id='gameContainer' style={{ marginTop: `${36 - boardSize * 2}vh` }}>
-                <Board failure={failure} boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
+                <Board gameLogic={gameLogic} boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} />
             </div>
             <div id='messageContainer'>
                 <div id='messageWindow' >

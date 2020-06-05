@@ -12,7 +12,7 @@ function Board(props) {
     return (
         rows.map((row, i) =>
             <div className='rows' key={i} id={`row-${i}`}>
-                <Row failure={props.failure} boardSize={props.boardSize} bombs={props.bombs} setSelected={props.setSelected} selected={props.selected} row={row} />
+                <Row gameLogic={props.gameLogic} boardSize={props.boardSize} row={row} />
             </div>
         )
     )

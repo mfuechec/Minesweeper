@@ -1,13 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function boardResizer(props) {
-
-    function newBoard() {
-        let element = document.getElementById('selection');
-        props.setBoardSize(element.value);
-        props.setBombs(props.generateMines(element.value, element.value * 2))
-        props.reset();
-    }
 
     return (
         <div id='boardResizer'>
@@ -16,7 +9,7 @@ function boardResizer(props) {
                 <option value='15'>15</option>
                 <option value='18'>18</option>
             </select>
-            <button className='selection' onClick={() => { newBoard() }}>New Board</button>
+            <button className='selection' onClick={() => { props.resetBoard() }}>New Board</button>
         </div>
     )
 }
