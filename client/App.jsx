@@ -25,6 +25,23 @@ function App() {
         return mines;
     }
 
+    function failure() {
+        showBombs();
+
+        let element = document.getElementsByClassName('square');
+        for (let i = 0; i < element.length; i++) {
+            element[i].disabled = true;
+        }
+    }
+
+    function showBombs() {
+        let bombs = document.getElementsByClassName('bombs');
+
+        for (let i = 0; i < bombs.length; i++) {
+            bombs[i].style.display = 'block';
+        }
+    }
+
     function reset() {
         let elements = document.getElementsByClassName('empty');
         for (let i = 0; i < elements.length; i++) {
@@ -45,6 +62,8 @@ function App() {
         for (let i = 0; i < elements.length; i++) {
             elements[i].disabled = false;
         }
+
+        setMessage('Good Luck, dude!');
     }
 
     return (
@@ -53,7 +72,7 @@ function App() {
                 <BoardResizer reset={reset} setSelected={setSelected} setBombs={setBombs} generateMines={generateMines} setBoardSize={setBoardSize} />
             </div>
             <div id='gameContainer'>
-                <Board boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
+                <Board failure={failure} boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} setSelected={setSelected} />
             </div>
             <div id='messageContainer'>
                 <div id='messageWindow' >

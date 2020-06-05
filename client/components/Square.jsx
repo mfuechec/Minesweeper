@@ -79,29 +79,9 @@ function Square(props) {
         }
     }
 
-    function failure() {
-        let element = document.getElementById('lost');
-        element.style.zIndex = 5;
-
-        showBombs();
-
-        element = document.getElementsByClassName('square');
-        for (let i = 0; i < element.length; i++) {
-            element[i].disabled = true;
-        }
-    }
-
-    function showBombs() {
-        let bombs = document.getElementsByClassName('bombs');
-
-        for (let i = 0; i < bombs.length; i++) {
-            bombs[i].style.display = 'block';
-        }
-    }
-
     if (isBomb(coordinates)) {
         return (
-            <button className='square' id={coordinates} onClick={() => failure()}>
+            <button className='square' id={coordinates} onClick={() => props.failure()}>
                 <div className='bombs' style={{ display: 'none', backgroundColor: 'red' }}>!!!</div>
             </button>
         )
