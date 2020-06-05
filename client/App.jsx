@@ -63,6 +63,7 @@ function App() {
             elements[i].disabled = false;
         }
 
+        setSelected({});
         setMessage('Good Luck, dude!');
     }
 

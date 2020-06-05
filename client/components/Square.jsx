@@ -88,7 +88,7 @@ function Square(props) {
     } else {
         return (
             <button className='square' id={coordinates} onClick={() => { select(coordinates) }}>
-                <div className='empty' onClick={() => { select(coordinates) }} style={{ display: 'none' }}>{numberOfNeighboringBombs(coordinates)}</div>
+                <div className='empty' onClick={() => { select(coordinates) }}>{numberOfNeighboringBombs(coordinates)}</div>
             </button>
         )
     }
