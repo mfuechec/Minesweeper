@@ -13,7 +13,7 @@ function Square(props) {
     } else {
         return (
             <button className='square' id={coordinates} onClick={() => { props.gameLogic.select(coordinates) }}>
-                <div className='empty' onClick={() => { props.gameLogic.select(coordinates) }}>{props.gameLogic.numberOfNeighboringBombs(coordinates)}</div>
+                <div className='empty' >{props.gameLogic.numberOfNeighboringBombs(coordinates)}</div>
             </button>
         )
     }

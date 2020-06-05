@@ -7,7 +7,7 @@ import Timer from './components/Timer/Timer.jsx';
 function App() {
 
     let [boardSize, setBoardSize] = useState(10);
-    let [difficulty, setDifficulty] = useState(1)
+    let [difficulty, setDifficulty] = useState(2)
     let [bombs, setBombs] = useState(generateMines(boardSize, boardSize * difficulty));
     let [selected, setSelected] = useState({ numbers: 0 });
     let [message, setMessage] = useState('Good luck, dude!');
@@ -51,6 +51,7 @@ function App() {
         elements = document.getElementsByClassName('square');
         for (let i = 0; i < elements.length; i++) {
             elements[i].disabled = false;
+            elements[i].style.backgroundColor = '#2192bc';
         }
 
         setSelected({});
@@ -116,6 +117,7 @@ function App() {
         toggle(coordinates) {
             let element = document.getElementById(coordinates);
             element.children[0].style.display = 'block';
+            element.style.backgroundColor = '#EEEEEE';
         },
 
         bordersBombs(coordinates) {
