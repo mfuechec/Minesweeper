@@ -5,21 +5,17 @@ module.exports = {
     path: path.resolve(__dirname, 'public'), // where webpack will put the compiled file
     filename: 'bundle.js', // name of compiled code file
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
+  },
   devServer: {
     contentBase: './public', // this option is used for my "start client" script
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/, //find all .js and .jsx files
-        exclude: /node_modules/, //exclude node modules
-        use: {
-          loader: 'babel-loader', //use babel loader to transpile
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'], // use the ES6 and React presets with babel
-          },
-        },
-      },
-    ],
+      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' }, exclude: /node_modules/ },
+      { enforce: "pre", test: /\.js$/, exclude: /node_modules/, loader: "source-map-loader" }
+    ]
   },
+  devtool: "source-map"
 };

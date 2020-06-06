@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 
 function Square(props) {
 
-    let coordinates = props.coordinates;
+    let coordinates: string = JSON.stringify(props.coordinates);
 
     if (props.gameLogic.isBomb(coordinates)) {
         return (
@@ -12,8 +12,8 @@ function Square(props) {
         )
     } else {
         return (
-            <button className='square' id={coordinates} onClick={() => { props.gameLogic.select(coordinates) }}>
-                <div className='empty' >{props.gameLogic.numberOfNeighboringBombs(coordinates)}</div>
+            <button className='square' id={coordinates} onClick={() => { props.gameLogic.select(props.coordinates) }}>
+                <div className='empty' >{props.gameLogic.numberOfNeighboringBombs(props.coordinates)}</div>
             </button>
         )
     }
