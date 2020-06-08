@@ -13,6 +13,7 @@ function App() {
     let [selected, setSelected] = useState({});
     let [message, setMessage] = useState('Good luck, dude!');
     let [reset, setReset] = useState(false);
+    let [stopped, setStopped] = useState(false);
 
     function generateMines(boardSize, numOfMines) {
         let mines = {};
@@ -81,6 +82,7 @@ function App() {
             }
 
             setMessage('You Lose, Loser!')
+            setStopped(true);
         },
 
         victory() {
@@ -188,7 +190,7 @@ function App() {
             </div>
             <div id='messageContainer'>
                 <div id='messageWindow' >
-                    <Timer setReset={setReset} reset={reset} />
+                    <Timer stopped={stopped} reset={reset} />
                     <Message message={message} />
                 </div>
             </div>

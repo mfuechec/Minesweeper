@@ -5,8 +5,16 @@ function Timer(props) {
     function increment() {
         setTimeout(() => {
             let element = document.getElementById('timer');
-            element.innerText = JSON.stringify(parseInt(element.innerText) + 1);
-            increment();
+            if (props.reset === true) {
+
+            } else if (props.stopped === true) {
+                console.log(props.stopped)
+
+            } else {
+                element.innerText = JSON.stringify(parseInt(element.innerText) + 1);
+                increment();
+            }
+
         }, 1000)
     }
 
