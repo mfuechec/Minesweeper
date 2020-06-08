@@ -12,8 +12,7 @@ function App() {
     let [bombs, setBombs] = useState(generateMines(boardSize, boardSize * difficulty));
     let [selected, setSelected] = useState({});
     let [message, setMessage] = useState('Good luck, dude!');
-    let [startTime, setStartTime] = useState(Date.now());
-    let [currentTime, setCurrentTime] = useState(Date.now());
+    let [reset, setReset] = useState(false);
 
     function generateMines(boardSize, numOfMines) {
         let mines = {};
@@ -58,8 +57,9 @@ function App() {
 
         setSelected({});
         setMessage('Good Luck, dude!');
-        setStartTime(Date.now());
-        setCurrentTime(Date.now());
+        let timer = document.getElementById('timer') as HTMLInputElement;
+        timer.innerText = '0';
+        setReset(true);
     }
 
     function showBombs() {
@@ -69,14 +69,6 @@ function App() {
             bombs[i].style.display = 'block';
         }
     }
-
-    function updateCurrentTime() {
-        setInterval(() => {
-            setCurrentTime(Date.now());
-        }, 1000)
-    }
-
-    updateCurrentTime();
 
     let gameLogic = {
 
@@ -97,7 +89,9 @@ function App() {
                 element[i].disabled = true;
             }
 
-            setMessage(`You won in ${Math.floor((currentTime - startTime) / 1000)} seconds!`)
+            let timer = document.getElementById('timer') as HTMLInputElement;
+
+            setMessage(`You won in ${timer.innerText} seconds!`)
         },
 
         select(coordinates) {
@@ -182,6 +176,8 @@ function App() {
         }
     }
 
+    console.log('rendering')
+
     return (
         <div id='fullScreen'>
             <div id='settingsContainer'>
@@ -192,7 +188,7 @@ function App() {
             </div>
             <div id='messageContainer'>
                 <div id='messageWindow' >
-                    <Timer currentTime={currentTime} startTime={startTime} />
+                    <Timer setReset={setReset} reset={reset} />
                     <Message message={message} />
                 </div>
             </div>

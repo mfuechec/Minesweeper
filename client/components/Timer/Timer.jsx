@@ -1,8 +1,21 @@
 import * as React from 'react';
 
 function Timer(props) {
+
+    function increment() {
+        setTimeout(() => {
+            let element = document.getElementById('timer');
+            element.innerText = JSON.stringify(parseInt(element.innerText) + 1);
+            increment();
+        }, 1000)
+    }
+
+    if (props.reset === false) {
+        increment();
+    }
+
     return (
-        <div id='timer'>{Math.floor((props.currentTime - props.startTime) / 1000)}</div>
+        <div id='timer'>0</div>
     )
 }
 
