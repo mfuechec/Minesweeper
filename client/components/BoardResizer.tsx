@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-function boardResizer(props) {
+function boardResizer({resetBoard, resetClock}) {
+
+    let reset = () => {
+        resetBoard();
+        resetClock();
+    }
 
     return (
         <div id='boardResizer'>
@@ -16,7 +21,7 @@ function boardResizer(props) {
                 <option value='1.75'>Medium</option>
                 <option value='2'>Hard</option>
             </select> */}
-            <button className='selection' onClick={() => { props.resetBoard() }}>New Board</button>
+            <button className='selection' onClick={reset}>New Board</button>
         </div>
     )
 }

@@ -12,8 +12,8 @@ function App() {
     let [bombs, setBombs] = useState(generateMines(boardSize, boardSize * difficulty));
     let [selected, setSelected] = useState({});
     let [message, setMessage] = useState('Good luck, dude!');
-    let [reset, setReset] = useState(false);
-    let [stopped, setStopped] = useState(false);
+    let [stop, setStop] = useState(false);
+    let [timer, setTimer] = useState(0);
 
     function generateMines(boardSize, numOfMines) {
         let mines = {};
@@ -58,9 +58,6 @@ function App() {
 
         setSelected({});
         setMessage('Good Luck, dude!');
-        let timer = document.getElementById('timer') as HTMLInputElement;
-        timer.innerText = '0';
-        setReset(true);
     }
 
     function showBombs() {
@@ -81,8 +78,8 @@ function App() {
                 element[i].disabled = true;
             }
 
-            setMessage('You Lose, Loser!')
-            setStopped(true);
+            setMessage('You Lose, Loser!');
+            clockLogic.stopClock();
         },
 
         victory() {
@@ -93,7 +90,8 @@ function App() {
 
             let timer = document.getElementById('timer') as HTMLInputElement;
 
-            setMessage(`You won in ${timer.innerText} seconds!`)
+            setMessage(`You won in ${timer.innerText} seconds!`);
+            clockLogic.stopClock();
         },
 
         select(coordinates) {
@@ -176,21 +174,46 @@ function App() {
                 return false;
             }
         }
+
     }
 
-    console.log('rendering')
+    let clockLogic = {
+
+        increment() {
+            if (!stop) {
+                let id = setTimeout(()=>{
+                    let time: number = timer;
+                    time++;
+                    setTimer(time);
+                }, 1000)
+            } 
+        },
+
+        stopClock() {
+            setStop(true);
+        },
+
+        resetClock() {
+            setTimer(0);
+            setStop(false);
+            clockLogic.increment();
+        }
+
+    }
+
+    clockLogic.increment();
 
     return (
         <div id='fullScreen'>
             <div id='settingsContainer'>
-                <BoardResizer resetBoard={resetBoard} />
+                <BoardResizer resetBoard={resetBoard} resetClock={clockLogic.resetClock} />
             </div>
             <div id='gameContainer' style={{ marginTop: `${36 - boardSize * 2}vh` }}>
                 <Board gameLogic={gameLogic} boardSize={boardSize} bombs={bombs} setBombs={setBombs} selected={selected} />
             </div>
             <div id='messageContainer'>
                 <div id='messageWindow' >
-                    <Timer stopped={stopped} reset={reset} />
+                    <Timer timer={timer} />
                     <Message message={message} />
                 </div>
             </div>
